@@ -1,4 +1,4 @@
-package com.vadidra.learning.springboot.api.student.web;
+package com.vadidra.learning.springboot.api.student.controller;
 
 import com.vadidra.learning.springboot.api.student.service.StudentService;
 import org.junit.Test;

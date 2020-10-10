@@ -15,12 +15,12 @@ public class StudentServiceImpl implements StudentService {
     private StudentRepository studentRepository;
 
     @Override
-    public List<Student> listStudents() {
+    public List<Student> selectAllStudents() {
         return (List<Student>) studentRepository.findAll();
     }
 
     @Override
-    public Student findStudent(long id) {
+    public Student selectStudentById(long id) {
         Optional<Student> optionalStudent = studentRepository.findById(id);
 
         if(optionalStudent.isPresent())
@@ -28,5 +28,34 @@ public class StudentServiceImpl implements StudentService {
         else
             throw new StudentNotFoundException("Student Not Found");
     }
+
+    @Override
+    public void insertNewStudent(Student student){
+        studentRepository.save(student);
+    }
+
+    @Override
+    public void deleteStudentById(long id) {
+
+        if(studentRepository.existsById(id))
+            studentRepository.deleteById(id);
+        else
+            throw new StudentNotFoundException("Student Not Found");
+    }
+
+    @Override
+    public void updateStudent(Student newStudent) {
+
+        if(studentRepository.existsById(newStudent.getId()))
+        {
+            studentRepository.deleteById(newStudent.getId());
+            studentRepository.save(newStudent);
+        }
+        else
+            throw new StudentNotFoundException("Student Not Found");
+    }
+
+    @Override
+    public long countStudents() { return studentRepository.count(); }
 
 }

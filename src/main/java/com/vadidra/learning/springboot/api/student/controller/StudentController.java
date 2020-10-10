@@ -1,4 +1,4 @@
-package com.vadidra.learning.springboot.api.student.web;
+package com.vadidra.learning.springboot.api.student.controller;
 
 import com.vadidra.learning.springboot.api.student.entity.Student;
 import com.vadidra.learning.springboot.api.student.exception.StudentNotFoundException;
@@ -16,7 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-public class ApiController {
+public class StudentController {
 
     private StudentService studentService;
 
@@ -28,17 +28,23 @@ public class ApiController {
 
     @GetMapping("/students")
     public ResponseEntity<List<Student>> getAllStudents() {
-        List<Student> list = studentService.listStudents();
+        List<Student> list = studentService.selectAllStudents();
         return new ResponseEntity<List<Student>>(list, HttpStatus.OK);
     }
 
     @GetMapping("/student/{id}")
     public ResponseEntity<Student> getStudent(@PathVariable("id") long id) {
         try {
-            return new ResponseEntity<Student>(studentService.findStudent(id), HttpStatus.OK);
+            return new ResponseEntity<Student>(studentService.selectStudentById(id), HttpStatus.OK);
         } catch (StudentNotFoundException exception) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Student Not Found");
         }
+    }
+
+    @GetMapping("/total")
+    public ResponseEntity<Long> getTotal() {
+        Long total = studentService.countStudents();
+        return new ResponseEntity<Long>(total, HttpStatus.OK);
     }
 
 }
