@@ -30,26 +30,30 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void insertNewStudent(Student student){
+    public int insertNewStudent(Student student){
         studentRepository.save(student);
+        return 1;
     }
 
     @Override
-    public void deleteStudentById(long id) {
+    public int deleteStudentById(long id) {
 
-        if(studentRepository.existsById(id))
+        if(studentRepository.existsById(id)) {
             studentRepository.deleteById(id);
+            return 1;
+        }
         else
             throw new StudentNotFoundException("Student Not Found");
     }
 
     @Override
-    public void updateStudent(Student newStudent) {
+    public int updateStudent(Student newStudent) {
 
         if(studentRepository.existsById(newStudent.getId()))
         {
             studentRepository.deleteById(newStudent.getId());
             studentRepository.save(newStudent);
+            return 1;
         }
         else
             throw new StudentNotFoundException("Student Not Found");
