@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.vadidra.learning</groupId>
-	<artifactId>api-students</artifactId>
+	<artifactId>students</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>api-students</name>
-	<description>Spring Boot demo project, API students</description>
+	<name>students</name>
+	<description>Spring Boot demo project students</description>
 
 	<properties>
 		<java.version>1.8</java.version>
